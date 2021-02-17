@@ -19,27 +19,48 @@ class Gerenciador:
           self.processo_main.processo = processo # adiciona o processo a cabeca
           processo.id = 0
           self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id 
-        else:
-          return False
+          return True
       else:
         currentProcess = self.processo_main # pega a cabeca como atual
         while currentProcess.processo != None: # pega o ultimo processo
           currentProcess = currentProcess.processo
-        id = currentProcess.id + currentProcess.tamanho
-        if processo.tamanho + id < self.tamanho_memoria:
+        id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
+        if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
           processo.id = id
           self.identificadores[id] = processo.tamanho
           currentProcess.processo = processo
-        else:
-          return False
+          return True
+      return False
         
-
-
   def deletar_processo(self, id):
     pass
   
   def imprimir_dump_memoria(self):
-    pass
+    elements = [] # guarda os logs
+    if self.processo_main.processo == None: # checa se há processos
+      print("Nenhum processo existente!")
+      return False
+    currentProcess:Processo = self.processo_main.processo # pega o primeiro processo
+    id = 0
+    while currentProcess != None: # checa se existe
+      if currentProcess.id == id: # checa se o id esta entre os ocupados
+        elements.append("[O, {}, {}]".format(id, currentProcess.tamanho))
+      else: # entra na condicao do espaco Disponivel e guarda ambos
+        elements.append("[D, {}, {}]".format(id, currentProcess.id - id - 1))
+        elements.append("[O, {}, {}]".format(currentProcess.id, currentProcess.tamanho))
+      
+      id = currentProcess.id + currentProcess.tamanho # gera o novo id
+
+      currentProcess = currentProcess.processo
+
+    # imprime os elementos
+    lastElement = elements.pop()
+    for e in elements:
+      print(e, end=" -> ")
+    print(lastElement)
+
+
+
 
 
 

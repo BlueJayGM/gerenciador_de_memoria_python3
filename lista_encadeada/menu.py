@@ -11,7 +11,7 @@ class Menu:
     print("Defina o tipo de estrategia [ 0 - First-Fit; 1 - Best-Fit; 2 - Worst-Fit ]")
     estrategia = int(input("valor: "))
     processo = Processo(None, tamanho, estrategia)
-    self.gerenciador.criar_novo_processo(processo)
+    return self.gerenciador.criar_novo_processo(processo)
 
   def deletar(self):
     id = int(input("Digite o id do processo: "))
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     op = int(input("Digite a opcao desejada: "))
 
     if op > 0 and op <= 3:
-      if op == 1: menu.criar()
+      if op == 1: print("ok") if menu.criar() else print("neko")
       if op == 2: menu.deletar()
       if op == 3: menu.imprimir()
     else:
