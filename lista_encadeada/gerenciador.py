@@ -23,7 +23,17 @@ class Gerenciador:
       else:
         currentProcess = self.processo_main # pega a cabeca como atual
         while currentProcess.processo != None: # pega o ultimo processo
-          currentProcess = currentProcess.processo
+          atual = currentProcess.processo
+          prox = atual.processo
+          if prox != None:
+            if atual.id + atual.tamanho == prox.id:
+              currentProcess = currentProcess.processo
+            else:
+              if atual.id + atual.tamanho + processo.tamanho < prox.id:
+                currentProcess = currentProcess.processo
+                break
+          else:
+            currentProcess = currentProcess.processo
         id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
         if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
           processo.id = id
@@ -33,7 +43,18 @@ class Gerenciador:
       return False
         
   def deletar_processo(self, id):
-    pass
+    
+    currentProcess = self.processo_main # pega o primeiro existente
+    
+    while currentProcess != None:
+      print("id_processo: {}".format(currentProcess.id))
+      if currentProcess.processo.id == id:
+        currentProcess.processo = currentProcess.processo.processo
+        print(currentProcess.id if currentProcess != None else "is None")
+        break
+      else:
+        currentProcess = currentProcess.processo
+
   
   def imprimir_dump_memoria(self):
     elements = [] # guarda os logs
