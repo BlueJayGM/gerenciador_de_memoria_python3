@@ -57,18 +57,14 @@ class Estrategia:
           return True
     else:
       currentProcess = self.processo_main # pega a cabeca como atual
-      print("Tamanho do Processo que deseja Adicionar: ", processo.tamanho)  # Tamanho do Processo adicionado
-      print("-----------------------------------------------")
       while currentProcess.processo != None: # pega o ultimo processo
-        atual = currentProcess.processo
+        atual = currentProcess
         prox = atual.processo
-        print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
-        print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
+        # print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
+        # print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
         if prox != None:
           if atual.posicao + atual.tamanho != prox.posicao:
-            print("newLen: ", atual.posicao + atual.tamanho)
             tamanhoNewLen = int(prox.posicao) - (int(atual.posicao) + int(atual.tamanho))
-            print("tamanhoNewLen: ", tamanhoNewLen)
             if atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho == tamanhoNewLen:
               processo.posicao = atual.posicao + atual.tamanho
               self.identificadores[processo.posicao] = processo.tamanho
@@ -79,10 +75,8 @@ class Estrategia:
               if tamanhoNewLen < menorTamanhoProcesso:
                 menorTamanhoProcesso = tamanhoNewLen
                 saveAtual = currentProcess.processo
-                saveProcessoTamanho = processo.tamanho
                 saveProx = atual.processo
-                saveTamanhoNewLen = tamanhoNewLen
-            # atual = prox
+            atual = prox
         if prox == None and saveAtual != None:
           processo.posicao = saveAtual.posicao + saveAtual.tamanho
           self.identificadores[processo.posicao] = processo.tamanho
@@ -99,6 +93,7 @@ class Estrategia:
         currentProcess.processo = processo
         return True
       return False
+
   def worstFit(self, processo):
     if self.processo_main.processo == None:  # checa se ha processos
       if processo.tamanho < self.tamanho_memoria:  # valida o processo
