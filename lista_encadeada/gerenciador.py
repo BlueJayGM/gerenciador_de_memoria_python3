@@ -1,16 +1,15 @@
-from typing import Final
-
 from processo import Processo
 
 from estrategias import Estrategia
 
-FIRST_FIT:Final = 0; BEST_FIT:Final = 1; WORST_FIT:Final = 2 #Constantes
+FIRST_FIT = 0; BEST_FIT = 1; WORST_FIT = 2 #Constantes
 
 class Gerenciador:
 
   def __init__(self, tamanho_memoria):
     self.processo_main = Processo(-1, 0, 0, 0)
-    self.tamanho_memoria = tamanho_memoria
+    self.processo_main.processo = Processo(1,5,0,0, Processo(2,5,0,5, Processo(3,6,0,10)))
+    self.tamanho_memoria = 16
     self.identificadores = {}
     self.estrategia = Estrategia(self.processo_main, self.tamanho_memoria, self.identificadores)
 

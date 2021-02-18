@@ -104,4 +104,41 @@ class Estrategia:
         self.identificadores[0] = processo.tamanho  # adiciona o tamanho e o id
         return True
     else:
-      return False
+      '''
+      -Percorre a memória em busca de espaços alocáveis,
+      -ao encontrar um espaço ele salva como a maiorPosicao
+      -continua percorrendo para checar se existem espaços maiores,
+      -caso haja espaços maiores ele salva o maior, caso não salva o processo
+      -no maiorPosicao
+      '''
+      currentProcess = self.processo_main
+      maiorPosicao = None
+      while currentProcess.processo != None:
+        tamanhoProcesso = processo.tamanho
+        atual = currentProcess
+        prox = atual.processo
+        currentPosicao = atual.posicao + atual.tamanho
+        if currentPosicao + tamanhoProcesso - 1 < prox.posicao:
+          if maiorPosicao != None:
+            if maiorPosicao < currentPosicao:
+              maiorPosicao = currentPosicao
+          else:
+            maiorPosicao = currentPosicao
+          atual = prox
+        currentProcess = prox
+
+      currentPosicao = currentProcess.posicao + currentProcess.tamanho
+
+      if maiorPosicao < currentPosicao:
+        maiorPosicao = currentPosicao
+
+      while currentProcess.processo != None: # pega o ultimo processo e transforma em cabeca
+        atual = currentProcess
+        prox = atual.processo
+        if atual.posicao + atual.tamanho == maiorPosicao:
+          processo.processo = prox
+          atual.processo = processo
+          return True
+        currentProcess = prox
+
+    return False

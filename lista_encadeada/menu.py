@@ -25,12 +25,12 @@ class Menu:
 if __name__ == "__main__":
 
   print("\n ------------------- Menu ------------------- ")
-  tamanho_memoria = int(input("> Digite o tamanha da memoria em blocos: "))
+  tamanho_memoria = int(input("> Digite o tamanho da memoria em blocos: "))
   menu = Menu(tamanho_memoria)
   
   while True:
     print("\n ------------------- Menu ------------------- ")
-    print("> 1 - Criar Processo\n> 2 - Deletar Processo\n> 3 - Imprimir Dump\n> Outra - Sair")
+    print("> 1 - Criar Processo\n> 2 - Deletar Processo\n> 3 - Imprimir Dump\n> Outro - Sair")
     op = int(input("Digite a opcao desejada: "))
 
     if op > 0 and op <= 3:
