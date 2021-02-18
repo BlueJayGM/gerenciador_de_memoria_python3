@@ -44,6 +44,7 @@ class Gerenciador:
       return False
     currentProcess:Processo = self.processo_main.processo # pega o primeiro processo
     id = 0
+    print("Legenda:\nD = Disponível\nO = Oculpado\n[Condição, ID, Tamanho Processo Atual]")
     while currentProcess != None: # checa se existe
       if currentProcess.id == id: # checa se o id esta entre os ocupados
         elements.append("[O, {}, {}]".format(id, currentProcess.tamanho))
