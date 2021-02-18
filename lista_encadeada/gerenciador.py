@@ -1,10 +1,8 @@
-from typing import Final
-
 from processo import Processo
 
 from estrategias import Estrategia
 
-FIRST_FIT:Final = 0; BEST_FIT:Final = 1; WORST_FIT:Final = 2 #Constantes
+FIRST_FIT = 0; BEST_FIT = 1; WORST_FIT = 2 #Constantes
 
 class Gerenciador:
 
