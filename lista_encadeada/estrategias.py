@@ -17,7 +17,7 @@ class Estrategia:
     else:
       currentProcess = self.processo_main # pega a cabeca como atual
       while currentProcess.processo != None: # pega o ultimo processo
-        atual = currentProcess.processo
+        atual = currentProcess
         prox = atual.processo
         if prox != None:
           if atual.posicao + atual.tamanho != prox.posicao:
@@ -29,7 +29,7 @@ class Estrategia:
               atual.processo = processo
               return True
             atual = prox
-        currentProcess = atual
+        currentProcess = prox
 
       posicao = currentProcess.posicao + currentProcess.tamanho # gera o posicao do novo processo
 
