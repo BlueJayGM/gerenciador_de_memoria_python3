@@ -48,7 +48,7 @@ class Gerenciador:
       if currentProcess.id == id: # checa se o id esta entre os ocupados
         elements.append("[O, {}, {}]".format(id, currentProcess.tamanho))
       else: # entra na condicao do espaco Disponivel e guarda ambos
-        elements.append("[D, {}, {}]".format(id, currentProcess.id - id - 1))
+        elements.append("[D, {}, {}]".format(id, currentProcess.id - id))
         elements.append("[O, {}, {}]".format(currentProcess.id, currentProcess.tamanho))
       
       id = currentProcess.id + currentProcess.tamanho # gera o novo id

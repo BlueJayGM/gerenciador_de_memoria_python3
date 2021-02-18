@@ -20,15 +20,19 @@ class Estrategia:
         atual = currentProcess.processo
         prox = atual.processo
         if prox != None:
-          if atual.id + atual.tamanho == prox.id:
-            currentProcess = currentProcess.processo
-          else:
-            if atual.id + atual.tamanho + processo.tamanho < prox.id:
-              currentProcess = currentProcess.processo
-              break
-        else:
-          currentProcess = currentProcess.processo
+          if atual.id + atual.tamanho != prox.id:
+            print("newLen: ", atual.id + atual.tamanho)
+            if atual.id + atual.tamanho + processo.tamanho - 1 < prox.id:
+              processo.id = atual.id + atual.tamanho
+              self.identificadores[processo.id] = processo.tamanho
+              processo.processo = prox
+              atual.processo = processo
+              return True
+            atual = prox
+        currentProcess = atual
+
       id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
+
       if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
         processo.id = id
         self.identificadores[id] = processo.tamanho
