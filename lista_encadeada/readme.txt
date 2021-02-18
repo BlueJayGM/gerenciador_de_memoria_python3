@@ -1,4 +1,4 @@
 Grupo formado por:
-Mikhael D'Amato
+Mikhael de Oliveira Silva D'Amato
 Eyder Tinoco
-Gabriel Afonso Lins
+Gabriel Afonso Lins de Melo
