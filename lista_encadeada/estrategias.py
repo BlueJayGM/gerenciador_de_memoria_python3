@@ -97,4 +97,11 @@ class Estrategia:
     pass
 
   def worstFit(self, processo):
-    return True
+    if self.processo_main.processo == None:  # checa se ha processos
+      if processo.tamanho < self.tamanho_memoria:  # valida o processo
+        self.processo_main.processo = processo  # adiciona o processo a cabeca
+        processo.posicao = 0
+        self.identificadores[0] = processo.tamanho  # adiciona o tamanho e o id
+        return True
+    else:
+      return False
