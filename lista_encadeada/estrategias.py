@@ -8,6 +8,7 @@ class Estrategia:
     self.identificadores = identificadores
 
   def firstFit(self, processo):
+    #checa se tem processo, caso n tenha adiciona
     if self.processo_main.processo == None: # checa se ha processos
       if processo.tamanho < self.tamanho_memoria: # valida o processo
           self.processo_main.processo = processo # adiciona o processo a cabeca
@@ -15,13 +16,18 @@ class Estrategia:
           self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id 
           return True
     else:
+      '''
+        - percorre os processos em busca de espaco para alocar
+        - verifica se tem espaco entre processos, caso n tenha, verifica o proximo
+        - se tiver espaco apos todos os processos, adiciona, caso nao, nao adiciona
+      '''
       currentProcess = self.processo_main # pega a cabeca como atual
       while currentProcess.processo != None: # pega o ultimo processo
         atual = currentProcess
         prox = atual.processo
         if prox != None:
           if atual.posicao + atual.tamanho != prox.posicao:
-            print("newLen: ", atual.posicao + atual.tamanho)
+            #print("newLen: ", atual.posicao + atual.tamanho)
             if atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao:
               processo.posicao = atual.posicao + atual.tamanho
               self.identificadores[processo.posicao] = processo.tamanho

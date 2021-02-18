@@ -9,7 +9,7 @@ FIRST_FIT:Final = 0; BEST_FIT:Final = 1; WORST_FIT:Final = 2 #Constantes
 class Gerenciador:
 
   def __init__(self, tamanho_memoria):
-    self.processo_main = Processo(-1, 0, 0)
+    self.processo_main = Processo(-1, 0, 0, 0)
     self.tamanho_memoria = tamanho_memoria
     self.identificadores = {}
     self.estrategia = Estrategia(self.processo_main, self.tamanho_memoria, self.identificadores)
@@ -28,10 +28,10 @@ class Gerenciador:
     currentProcess = self.processo_main # pega o primeiro existente
     
     while currentProcess != None:
-      print("id_processo: {}".format(currentProcess.id))
+      #print("id_processo: {}".format(currentProcess.id))
       if currentProcess.processo.id == id:
         currentProcess.processo = currentProcess.processo.processo
-        print(currentProcess.id if currentProcess != None else "is None")
+        #print(currentProcess.id if currentProcess != None else "is None")
         break
       else:
         currentProcess = currentProcess.processo

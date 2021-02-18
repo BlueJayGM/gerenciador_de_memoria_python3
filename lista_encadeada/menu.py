@@ -34,7 +34,7 @@ if __name__ == "__main__":
     op = int(input("Digite a opcao desejada: "))
 
     if op > 0 and op <= 3:
-      if op == 1: print("ok") if menu.criar() else print("neko")
+      if op == 1: print("Processo criado com sucesso!") if menu.criar() else print("Erro ao criar processo!")
       if op == 2: menu.deletar()
       if op == 3: menu.imprimir()
     else:
