@@ -60,8 +60,8 @@ class Estrategia:
       while currentProcess.processo != None: # pega o ultimo processo
         atual = currentProcess
         prox = atual.processo
-        # print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
-        # print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
+        print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
+        print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
         if prox != None:
           if atual.posicao + atual.tamanho != prox.posicao:
             tamanhoNewLen = int(prox.posicao) - (int(atual.posicao) + int(atual.tamanho))
@@ -83,7 +83,7 @@ class Estrategia:
           processo.processo = saveProx
           saveAtual.processo = processo
           return True
-        currentProcess = atual
+        currentProcess = prox
 
       posicao = currentProcess.posicao + currentProcess.tamanho # gera o id do novo processo
 
