@@ -48,7 +48,7 @@ class Estrategia:
     
   def bestFit(self, processo):
     menorTamanhoProcesso = self.tamanho_memoria
-
+    saveAtual = None
     if self.processo_main.processo == None: # checa se ha processos
       if processo.tamanho < self.tamanho_memoria: # checa o processo
           self.processo_main.processo = processo # adiciona o processo a cabeca
@@ -75,13 +75,20 @@ class Estrategia:
               processo.processo = prox
               atual.processo = processo
               return True
-            elif atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho <= tamanhoNewLen:
-              saveAtualId = atual.posicao
-              saveAtualTamanho = atual.tamanho
-              saveProcessoTamanho = processo.tamanho
-              saveProxId = prox.posicao
-              saveTamanhoNewLen = tamanhoNewLen
-            atual = prox
+            elif atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho < tamanhoNewLen:
+              if tamanhoNewLen < menorTamanhoProcesso:
+                menorTamanhoProcesso = tamanhoNewLen
+                saveAtual = currentProcess.processo
+                saveProcessoTamanho = processo.tamanho
+                saveProx = atual.processo
+                saveTamanhoNewLen = tamanhoNewLen
+            # atual = prox
+        if prox == None and saveAtual != None:
+          processo.posicao = saveAtual.posicao + saveAtual.tamanho
+          self.identificadores[processo.posicao] = processo.tamanho
+          processo.processo = saveProx
+          saveAtual.processo = processo
+          return True
         currentProcess = atual
 
       posicao = currentProcess.posicao + currentProcess.tamanho # gera o id do novo processo
@@ -92,10 +99,6 @@ class Estrategia:
         currentProcess.processo = processo
         return True
       return False
-
-  def bestFitProcessoEmTamanhoMaior(self, saveAtualId, saveAtualTamanho, saveProcessoTamanho, saveProxId, saveTamanhoNewLen):
-    pass
-
   def worstFit(self, processo):
     if self.processo_main.processo == None:  # checa se ha processos
       if processo.tamanho < self.tamanho_memoria:  # valida o processo
