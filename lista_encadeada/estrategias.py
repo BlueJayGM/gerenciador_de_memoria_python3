@@ -128,17 +128,22 @@ class Estrategia:
         currentProcess = prox
 
       currentPosicao = currentProcess.posicao + currentProcess.tamanho
-
-      if maiorPosicao < currentPosicao:
+      if maiorPosicao != None and maiorPosicao < currentPosicao:
+        maiorPosicao = currentPosicao
+      elif maiorPosicao == None:
         maiorPosicao = currentPosicao
 
-      while currentProcess.processo != None: # pega o ultimo processo e transforma em cabeca
+      currentProcess = self.processo_main
+      while currentProcess != None: # pega o ultimo processo e transforma em cabeca
         atual = currentProcess
         prox = atual.processo
         if atual.posicao + atual.tamanho == maiorPosicao:
+          processo.posicao = maiorPosicao
+          self.identificadores[maiorPosicao] = processo.tamanho
           processo.processo = prox
           atual.processo = processo
           return True
+        atual = prox
         currentProcess = prox
 
     return False

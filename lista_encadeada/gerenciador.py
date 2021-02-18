@@ -8,8 +8,7 @@ class Gerenciador:
 
   def __init__(self, tamanho_memoria):
     self.processo_main = Processo(-1, 0, 0, 0)
-    self.processo_main.processo = Processo(1,5,0,0, Processo(2,5,0,5, Processo(3,6,0,10)))
-    self.tamanho_memoria = 16
+    self.tamanho_memoria = tamanho_memoria
     self.identificadores = {}
     self.estrategia = Estrategia(self.processo_main, self.tamanho_memoria, self.identificadores)
 
