@@ -44,21 +44,21 @@ class Gerenciador:
       print("[D, {}, {}]".format(0, self.tamanho_memoria))
       return False
     currentProcess:Processo = self.processo_main.processo # pega o primeiro processo
-    id = 0
+    posicao = 0
     print("Legendas:\nD = Disponível\nO = Oculpado\n[Condição, ID, Tamanho Processo Atual]")
     while currentProcess != None: # checa se existe
-      if currentProcess.id == id: # checa se o id esta entre os ocupados
-        elements.append("[O, {}, {}]".format(id, currentProcess.tamanho))
+      if currentProcess.posicao == posicao: # checa se o id esta entre os ocupados
+        elements.append("[O, {}, {}]".format(posicao, currentProcess.tamanho))
       else: # entra na condicao do espaco Disponivel e guarda ambos
-        elements.append("[D, {}, {}]".format(id, currentProcess.id - id))
-        elements.append("[O, {}, {}]".format(currentProcess.id, currentProcess.tamanho))
+        elements.append("[D, {}, {}]".format(posicao, currentProcess.posicao - posicao))
+        elements.append("[O, {}, {}]".format(currentProcess.posicao, currentProcess.tamanho))
       
-      id = currentProcess.id + currentProcess.tamanho # gera o novo id
+      posicao = currentProcess.posicao + currentProcess.tamanho # gera o novo posicao
       lastProcesso = currentProcess
       currentProcess = currentProcess.processo
 
     if lastProcesso != None:
-      lastPosition = lastProcesso.id + lastProcesso.tamanho
+      lastPosition = lastProcesso.posicao + lastProcesso.tamanho
       resto = self.tamanho_memoria - lastPosition
       if  resto > 0:
         elements.append("[D, {}, {}]".format(lastPosition, resto))

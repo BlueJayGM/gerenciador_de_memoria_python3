@@ -7,10 +7,11 @@ class Menu:
     self.gerenciador = Gerenciador(tamanho_memoria)
   
   def criar(self):
+    id = int(input("Digite o id do processo: "))
     tamanho = int(input("Digite o tamanho do processo: "))
     print("Defina o tipo de estrategia [ 0 - First-Fit; 1 - Best-Fit; 2 - Worst-Fit ]")
     estrategia = int(input("valor: "))
-    processo = Processo(None, tamanho, estrategia)
+    processo = Processo(id, tamanho, estrategia, None)
     return self.gerenciador.criar_novo_processo(processo)
 
   def deletar(self):

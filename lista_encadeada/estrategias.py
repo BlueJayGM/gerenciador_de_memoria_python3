@@ -11,7 +11,7 @@ class Estrategia:
     if self.processo_main.processo == None: # checa se ha processos
       if processo.tamanho < self.tamanho_memoria: # valida o processo
           self.processo_main.processo = processo # adiciona o processo a cabeca
-          processo.id = 0
+          processo.posicao = 0
           self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id 
           return True
     else:
@@ -20,22 +20,22 @@ class Estrategia:
         atual = currentProcess.processo
         prox = atual.processo
         if prox != None:
-          if atual.id + atual.tamanho != prox.id:
-            print("newLen: ", atual.id + atual.tamanho)
-            if atual.id + atual.tamanho + processo.tamanho - 1 < prox.id:
-              processo.id = atual.id + atual.tamanho
-              self.identificadores[processo.id] = processo.tamanho
+          if atual.posicao + atual.tamanho != prox.posicao:
+            print("newLen: ", atual.posicao + atual.tamanho)
+            if atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao:
+              processo.posicao = atual.posicao + atual.tamanho
+              self.identificadores[processo.posicao] = processo.tamanho
               processo.processo = prox
               atual.processo = processo
               return True
             atual = prox
         currentProcess = atual
 
-      id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
+      posicao = currentProcess.posicao + currentProcess.tamanho # gera o posicao do novo processo
 
-      if processo.tamanho + id <= self.tamanho_memoria: # guarda o processo
-        processo.id = id
-        self.identificadores[id] = processo.tamanho
+      if processo.tamanho + posicao <= self.tamanho_memoria: # guarda o processo
+        processo.posicao = posicao
+        self.identificadores[posicao] = processo.tamanho
         currentProcess.processo = processo
         return True
       return False
@@ -46,7 +46,7 @@ class Estrategia:
     if self.processo_main.processo == None: # checa se ha processos
       if processo.tamanho < self.tamanho_memoria: # checa o processo
           self.processo_main.processo = processo # adiciona o processo a cabeca
-          processo.id = 0
+          processo.posicao = 0
           self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id
           return True
     else:
@@ -59,35 +59,36 @@ class Estrategia:
         print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
         print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
         if prox != None:
-          if atual.id + atual.tamanho != prox.id:
-            print("newLen: ", atual.id + atual.tamanho)
-            tamanhoNewLen = int(prox.id) - (int(atual.id) + int(atual.tamanho))
+          if atual.posicao + atual.tamanho != prox.posicao:
+            print("newLen: ", atual.posicao + atual.tamanho)
+            tamanhoNewLen = int(prox.posicao) - (int(atual.posicao) + int(atual.tamanho))
             print("tamanhoNewLen: ", tamanhoNewLen)
-            if atual.id + atual.tamanho + processo.tamanho - 1 < prox.id and processo.tamanho == tamanhoNewLen:
-              processo.id = atual.id + atual.tamanho
-              self.identificadores[processo.id] = processo.tamanho
+            if atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho == tamanhoNewLen:
+              processo.posicao = atual.posicao + atual.tamanho
+              self.identificadores[processo.posicao] = processo.tamanho
               processo.processo = prox
               atual.processo = processo
               return True
-            elif atual.id + atual.tamanho + processo.tamanho - 1 < prox.id and processo.tamanho <= tamanhoNewLen:
-              saveAtualId = atual.id
+            elif atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho <= tamanhoNewLen:
+              saveAtualId = atual.posicao
               saveAtualTamanho = atual.tamanho
               saveProcessoTamanho = processo.tamanho
-              saveProxId = prox.id
+              saveProxId = prox.posicao
               saveTamanhoNewLen = tamanhoNewLen
             atual = prox
         currentProcess = atual
 
-      id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
+      posicao = currentProcess.posicao + currentProcess.tamanho # gera o id do novo processo
 
-      if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
-        processo.id = id
-        self.identificadores[id] = processo.tamanho
+      if processo.tamanho + posicao - 1 <= self.tamanho_memoria: # guarda o processo
+        processo.posicao = posicao
+        self.identificadores[posicao] = processo.tamanho
         currentProcess.processo = processo
         return True
       return False
 
   def bestFitProcessoEmTamanhoMaior(self, saveAtualId, saveAtualTamanho, saveProcessoTamanho, saveProxId, saveTamanhoNewLen):
+    pass
 
   def worstFit(self, processo):
     return True
