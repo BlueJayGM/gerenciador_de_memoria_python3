@@ -70,7 +70,6 @@ class Estrategia:
               atual.processo = processo
               return True
             elif atual.id + atual.tamanho + processo.tamanho - 1 < prox.id and processo.tamanho <= tamanhoNewLen:
-              if
               saveAtualId = atual.id
               saveAtualTamanho = atual.tamanho
               saveProcessoTamanho = processo.tamanho
