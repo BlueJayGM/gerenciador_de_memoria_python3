@@ -61,7 +61,6 @@ class Estrategia:
         atual = currentProcess
         prox = atual.processo
         print("Tamanho: ", atual.tamanho) # Referente ao tamanho oculpado/disponivel atual na memoria.
-        print("Tamanho currentProcess: ", currentProcess.tamanho) # Referente ao tamanho processo anterior
         if prox != None:
           if atual.posicao + atual.tamanho != prox.posicao:
             tamanhoNewLen = int(prox.posicao) - (int(atual.posicao) + int(atual.tamanho))
@@ -74,16 +73,16 @@ class Estrategia:
             elif atual.posicao + atual.tamanho + processo.tamanho - 1 < prox.posicao and processo.tamanho < tamanhoNewLen:
               if tamanhoNewLen < menorTamanhoProcesso:
                 menorTamanhoProcesso = tamanhoNewLen
-                saveAtual = currentProcess.processo
+                saveAtual = currentProcess
                 saveProx = atual.processo
-            atual = prox
-        if prox == None and saveAtual != None:
+            # atual = prox
+        currentProcess = prox
+        if currentProcess.processo == None and saveAtual != None:
           processo.posicao = saveAtual.posicao + saveAtual.tamanho
           self.identificadores[processo.posicao] = processo.tamanho
           processo.processo = saveProx
           saveAtual.processo = processo
           return True
-        currentProcess = prox
 
       posicao = currentProcess.posicao + currentProcess.tamanho # gera o id do novo processo
 
