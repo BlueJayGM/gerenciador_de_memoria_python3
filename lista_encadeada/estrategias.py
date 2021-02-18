@@ -9,7 +9,7 @@ class Estrategia:
 
   def firstFit(self, processo):
     if self.processo_main.processo == None: # checa se ha processos
-      if processo.tamanho < self.tamanho_memoria: # checa o processo
+      if processo.tamanho < self.tamanho_memoria: # valida o processo
           self.processo_main.processo = processo # adiciona o processo a cabeca
           processo.id = 0
           self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id 
@@ -33,7 +33,7 @@ class Estrategia:
 
       id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
 
-      if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
+      if processo.tamanho + id <= self.tamanho_memoria: # guarda o processo
         processo.id = id
         self.identificadores[id] = processo.tamanho
         currentProcess.processo = processo

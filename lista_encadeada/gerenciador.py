@@ -39,8 +39,9 @@ class Gerenciador:
   
   def imprimir_dump_memoria(self):
     elements = [] # guarda os logs
+    lastProcesso = None
     if self.processo_main.processo == None: # checa se há processos
-      print("Nenhum processo existente!")
+      print("[D, {}, {}]".format(0, self.tamanho_memoria))
       return False
     currentProcess:Processo = self.processo_main.processo # pega o primeiro processo
     id = 0
@@ -52,8 +53,14 @@ class Gerenciador:
         elements.append("[O, {}, {}]".format(currentProcess.id, currentProcess.tamanho))
       
       id = currentProcess.id + currentProcess.tamanho # gera o novo id
-
+      lastProcesso = currentProcess
       currentProcess = currentProcess.processo
+
+    if lastProcesso != None:
+      lastPosition = lastProcesso.id + lastProcesso.tamanho
+      resto = self.tamanho_memoria - lastPosition
+      if  resto > 0:
+        elements.append("[D, {}, {}]".format(lastPosition, resto))
 
     # imprime os elementos
     lastElement = elements.pop()
