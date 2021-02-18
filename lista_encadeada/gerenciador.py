@@ -2,6 +2,8 @@ from typing import Final
 
 from processo import Processo
 
+from estrategias import Estrategia
+
 FIRST_FIT:Final = 0; BEST_FIT:Final = 1; WORST_FIT:Final = 2 #Constantes
 
 class Gerenciador:
@@ -10,37 +12,16 @@ class Gerenciador:
     self.processo_main = Processo(-1, 0, 0)
     self.tamanho_memoria = tamanho_memoria
     self.identificadores = {}
+    self.estrategia = Estrategia(self.processo_main, self.tamanho_memoria, self.identificadores)
 
   def criar_novo_processo(self, processo: Processo):
     
     if processo.estrategia == FIRST_FIT: # caso seja first_fit
-      if self.processo_main.processo == None: # checa se ha processos
-        if processo.tamanho < self.tamanho_memoria: # checa o processo
-          self.processo_main.processo = processo # adiciona o processo a cabeca
-          processo.id = 0
-          self.identificadores[0] = processo.tamanho # adiciona o tamanho e o id 
-          return True
-      else:
-        currentProcess = self.processo_main # pega a cabeca como atual
-        while currentProcess.processo != None: # pega o ultimo processo
-          atual = currentProcess.processo
-          prox = atual.processo
-          if prox != None:
-            if atual.id + atual.tamanho == prox.id:
-              currentProcess = currentProcess.processo
-            else:
-              if atual.id + atual.tamanho + processo.tamanho < prox.id:
-                currentProcess = currentProcess.processo
-                break
-          else:
-            currentProcess = currentProcess.processo
-        id = currentProcess.id + currentProcess.tamanho # gera o id do novo processo
-        if processo.tamanho + id - 1 <= self.tamanho_memoria: # guarda o processo
-          processo.id = id
-          self.identificadores[id] = processo.tamanho
-          currentProcess.processo = processo
-          return True
-      return False
+      return self.estrategia.firstFit(processo)
+    elif processo.estrategia == BEST_FIT:
+      return self.estrategia.bestFit(processo)
+    elif processo.estrategia == WORST_FIT:
+      return self.estrategia.worstFit(processo)
         
   def deletar_processo(self, id):
     
