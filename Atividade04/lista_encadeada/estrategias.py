@@ -17,6 +17,8 @@ class Estrategia:
 
   def addProcessInTop(self, top, process):
     mid = top.processo
+
+    print("Process: ", mid)
     if mid.tamanho - process.tamanho > 0:
       mid.tamanho -= process.tamanho
       process.posicao = mid.posicao
@@ -63,19 +65,8 @@ class Estrategia:
       top = top.processo
 
     if topBestLen != None:
-      mid = topBestLen.processo
-      '''
-      if mid.tamanho - processo.tamanho > 0:
-        mid.tamanho -= processo.tamanho
-        processo.posicao = mid.posicao
-        mid.posicao += processo.tamanho
-        processo.processo = mid
-      elif mid.tamanho - processo.tamanho == 0:
-        processo.posicao = mid.posicao
-      processo.status = 'O'
-      topBestLen.processo = processo
-      '''
-      return self.addProcessInTop(top, processo)
+      return self.addProcessInTop(topBestLen, processo)
+
     return False;
 
   def worstFit(self, processo):
