@@ -13,6 +13,10 @@ class Gerenciador:
 
   def criar_novo_processo(self, processo: Processo):
     
+    if self.estrategia.checkIdExists(processo.id):
+      print("\nID do processo já existe - ", end="")
+      return False
+
     if processo.estrategia == FIRST_FIT: # caso seja first_fit
       return self.estrategia.firstFit(processo)
     elif processo.estrategia == BEST_FIT:

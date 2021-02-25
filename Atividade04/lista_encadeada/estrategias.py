@@ -7,6 +7,14 @@ class Estrategia:
     self.tamanho_memoria = tamanho_memoria
     self.processo_main.processo = Processo(None, self.tamanho_memoria, None, 0, 'L')
 
+  def checkIdExists(self, id):
+    current = self.processo_main
+    while current != None:
+      if current.id == id:
+        return True
+      current = current.processo
+    return False
+
   def addProcessInTop(self, top, process):
     mid = top.processo
     if mid.tamanho - process.tamanho > 0:
@@ -16,6 +24,7 @@ class Estrategia:
       process.processo = mid
     elif mid.tamanho - process.tamanho == 0:
       process.posicao = mid.posicao
+      process.processo = mid.processo
     process.status = 'O'
     top.processo = process
     return True
